@@ -121,12 +121,19 @@ class TagTag(object):
 							s.add(self.forum_graph['user_id'][node])
 							self.tagtag_graph['users'][edge] = ';'.join(s)
 		for edge in self.tagtag_graph.getEdges():
-			self.tagtag_graph['nb_users'][edge] = len(self.tagtag_graph['users'][edge].split(';'))
+			self.tagtag_graph['nb_users'][edge] = len(self.tagtag_graph['users'][edge].split(';')) - 1.0
 
 if __name__ == '__main__':
+	'''
 	g = tlp.loadGraph('opencare.tlp')
 	print g.numberOfNodes()
 	print g.numberOfEdges()
 	tagtag = TagTag(g)
 	tagtag.tagtag_edges()
-	tlp.saveGraph(g, 'opencare_tag.tlp')
+	tlp.saveGraph(g, 'opencare_tag_bis.tlp')
+	'''
+	g = tlp.loadGraph('opencare_tag.tlp')
+	proj = Projection(g)
+	proj.edge_project()
+	tlp.saveGraph(g, 'opencare_tag_interaction.tlp')
+
